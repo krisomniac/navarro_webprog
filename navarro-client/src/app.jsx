@@ -1,27 +1,26 @@
-import { useState } from 'preact/hooks'
-import preactLogo from './assets/preact.svg'
-import viteLogo from '/vite.svg'
-import './app.css'
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-export function App() {
-  const [count, setCount] = useState(0)
+import Layout from "./components/Layout";
+import HomePage from "./pages/HomePage";
+import ArticlePage from "./pages/ArticlePage";
+import AboutPage from "./pages/AboutPage";
 
-  return (
-    <>
-     <div className="App">
-        <header className="App-header">
-          <h1>Welcome to My React App!</h1>
-          <p>
-            Name: Kristine Navarro<br />
-            Email: kristinevineonavarro@gmail.com<br />
-            Other info: <a href="https://github.com/Metalxr/maquilan-webprog">GitHub Repository</a>
-          </p>
+const routes = [
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      { path: "/", element: <HomePage /> },
+      { path: "/article", element: <ArticlePage /> },
+      { path: "/about", element: <AboutPage /> },
+    ],
+  },
+];
 
+const router = createBrowserRouter(routes);
 
-        </header>
-       
-      </div>
- 
-    </>
-  )
+function App() {
+  return <RouterProvider router={router} />;
 }
+
+export default App;
