@@ -1,23 +1,37 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import './assets/styles/index.css';
+import Layout from './components/Layout';
+import AboutPage from './pages/AboutPage';
+import ArticleListPage from './pages/ArticleListPage';
+import ArticlePage from './pages/ArticlePage';
+import HomePage from './pages/HomePage';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import NotFoundPage from './pages/NotFoundPage';
 
-import Layout from "./components/Layout";
-import HomePage from "./pages/HomePage";
-import ArticlePage from "./pages/ArticlePage";
-import AboutPage from "./pages/AboutPage";
-
-const routes = [
+const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <Layout />,
+    errorElement: <NotFoundPage />,
     children: [
-      { path: "/", element: <HomePage /> },
-      { path: "/article", element: <ArticlePage /> },
-      { path: "/about", element: <AboutPage /> },
-    ],
-  },
-];
-
-const router = createBrowserRouter(routes);
+      {
+        path: '/',
+        element: <HomePage />
+      },
+      {
+        path: '/about',
+        element: <AboutPage />
+      },
+      {
+        path: '/articles',
+        element: <ArticleListPage />
+      },
+      {
+        path: '/articles/:name',
+        element: <ArticlePage />
+      }
+    ]
+  }
+]);
 
 function App() {
   return <RouterProvider router={router} />;
