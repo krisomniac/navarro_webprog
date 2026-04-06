@@ -1,6 +1,8 @@
 import Button from "../components/Button";
-import groupphoto from "../images/group.jpg";
-
+import groupphoto from "../images/group photo.jpg";
+import album from "../images/album.jpg";
+import tour from "../images/tour.webp";
+import army from "../images/army.jpg";
 
 const HomePage = () => {
   return (
@@ -96,7 +98,7 @@ const HomePage = () => {
         <div className="grid gap-4 md:grid-cols-3">
           <article className="rounded-3xl border-2 border-zinc-900 bg-zinc-100 p-4">
             <div className="flex aspect-4/3 items-center justify-center rounded-[1.25rem] overflow-hidden bg-zinc-200">
-              <img src={groupphoto} alt="BTS Group" className="w-full h-full object-cover" />
+              <img src={album} alt="BTS Albums" className="w-full h-full object-cover" />
             </div>
 
             <h3 className="mt-4 text-lg font-semibold text-zinc-900">
@@ -114,7 +116,7 @@ const HomePage = () => {
 
           <article className="rounded-3xl border-2 border-zinc-900 bg-zinc-100 p-4">
             <div className="flex aspect-4/3 items-center justify-center rounded-[1.25rem] overflow-hidden bg-zinc-200">
-              <img src={groupphoto} alt="BTS Group" className="w-full h-full object-cover" />
+              <img src={tour} alt="BTS World Tours" className="w-full h-full object-cover" />
             </div>
 
             <h3 className="mt-4 text-lg font-semibold text-zinc-900">
@@ -132,7 +134,7 @@ const HomePage = () => {
 
           <article className="rounded-3xl border-2 border-zinc-900 bg-zinc-100 p-4">
             <div className="flex aspect-4/3 items-center justify-center rounded-[1.25rem] overflow-hidden bg-zinc-200">
-              <img src={groupphoto} alt="BTS Group" className="w-full h-full object-cover" />
+              <img src={army} alt="ARMY Community" className="w-full h-full object-cover" />
             </div>
 
             <h3 className="mt-4 text-lg font-semibold text-zinc-900">
