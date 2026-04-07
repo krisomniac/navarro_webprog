@@ -5,12 +5,13 @@ import ArticleListPage from './pages/ArticleListPage';
 import ArticlePage from './pages/ArticlePage';
 import HomePage from './pages/HomePage';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import NotFoundPage from './pages/NotFoundPage';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Layout />,
-    errorElement: <ArticlePage />,
+    errorElement: <NotFoundPage />,
     children: [
       {
         path: '/',

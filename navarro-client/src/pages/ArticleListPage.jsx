@@ -1,111 +1,35 @@
-import { Link } from "react-router-dom";
 import Button from '../components/Button';
+import ArticleList from '../components/ArticleList';
 import articles from '../assets/article-content.js';
-import dynamite from '../images/dynamite.jpg';
-import ptd from '../images/PTD.png';
-import grammy from '../images/grammy.jpg';
-import golden from '../images/golden.png';
-import military from '../images/military.jpg';
-import indigo from '../images/indigo.jpg';
-import jack from '../images/jack.avif';
-import dday from '../images/dday.jpg';
-import jimin from '../images/jimin.png';
-import fan from '../images/fan.webp';
 
 const ArticleListPage = () => {
   return (
-    <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-      {articles.map((article, index) => (
-        <article key={article.name} className="rounded-3xl border-2 border-zinc-900 bg-zinc-100 p-4">
-          <div className="flex aspect-4/3 items-center justify-center rounded-[1.25rem] bg-zinc-200 overflow-hidden">
-            {index === 0 && (
-              <img 
-                src={dynamite} 
-                alt={article.title}
-                className="h-full w-full object-cover"
-              />
-            )}
-            {index === 1 && (
-              <img 
-                src={ptd} 
-                alt={article.title}
-                className="h-full w-full object-cover"
-              />
-            )}
-            {index === 2 && (
-              <img 
-                src={grammy} 
-                alt={article.title}
-                className="h-full w-full object-cover"
-              />
-            )}
-            {index === 3 && (
-              <img 
-                src={golden} 
-                alt={article.title}
-                className="h-full w-full object-cover"
-              />
-            )}
-            {index === 4 && (
-              <img 
-                src={military} 
-                alt={article.title}
-                className="h-full w-full object-cover"
-              />
-            )}
-            {index === 5 && (
-              <img 
-                src={indigo} 
-                alt={article.title}
-                className="h-full w-full object-cover"
-              />
-            )}
-            {index === 6 && (
-              <img 
-                src={jack} 
-                alt={article.title}
-                className="h-full w-full object-cover"
-              />
-            )}
-            {index === 7 && (
-              <img 
-                src={dday} 
-                alt={article.title}
-                className="h-full w-full object-cover"
-              />
-            )}
-            {index === 8 && (
-              <img 
-                src={jimin} 
-                alt={article.title}
-                className="h-full w-full object-cover"
-              />
-            )}
-            {index === 9 && (
-              <img 
-                src={fan} 
-                alt={article.title}
-                className="h-full w-full object-cover"
-              />
-            )}
-          </div>
-          <p className="mt-4 text-[11px] font-semibold uppercase tracking-[0.24em] text-zinc-500">
-            {article.category}
+    <div className="flex w-full flex-col gap-6">
+      <section className="border-y-2 border-purple-200 bg-zinc-50 px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
+        <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.28em] text-zinc-500">
+          BTS ARMY
+        </p>
+        <h1 className="max-w-2xl text-3xl font-bold leading-tight text-zinc-900 sm:text-4xl">
+          BTS News, Updates, and Exclusive Stories
+        </h1>
+        <p className="mt-4 max-w-2xl text-sm leading-7 text-zinc-600 sm:text-base">
+          Stay updated with the latest BTS news, music releases, tour announcements, award wins, and solo projects. Your ultimate destination for everything Bangtan.
+        </p>
+        <div className="mt-6">
+          <Button to="/" variant="primary">Back Home</Button>
+        </div>
+      </section>
+
+      <section className="border-y-2 border-purple-200 bg-zinc-50 px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
+        <div className="mb-6">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-zinc-500">
+            Latest Stories
           </p>
-          <h3 className="mt-2 text-lg font-semibold text-zinc-900">{article.title}</h3>
-          <div className="flex items-center gap-2 mt-2 text-xs text-zinc-500">
-            <span>{article.date}</span>
-            <span>•</span>
-            <span>{article.readTime}</span>
-          </div>
-          <p className="mt-3 text-sm leading-6 text-zinc-600">
-            {article.content[0].substring(0, 120)}...
-          </p>
-          <Link to={`/articles/${article.name}`}>
-            <Button className="mt-4">Read More</Button>
-          </Link>
-        </article>
-      ))}
+          <h2 className="mt-2 text-2xl font-semibold text-zinc-900">BTS News & Updates</h2>
+        </div>
+
+        <ArticleList articles={articles} />
+      </section>
     </div>
   );
 };
