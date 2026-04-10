@@ -1,4 +1,5 @@
 import Button from "../components/Button";
+import articles from "../assets/article-content.js";
 import groupphoto from "../images/group.jpg";
 
 const AboutPage = () => {
@@ -75,6 +76,13 @@ const AboutPage = () => {
             <p className="text-2xl font-bold text-zinc-900">30</p>
             <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-zinc-500">
               Billboard #1s
+            </p>
+          </div>
+
+          <div className="rounded-3xl border-2 border-zinc-900 bg-zinc-100 p-5">
+            <p className="text-2xl font-bold text-zinc-900">{articles.length}</p>
+            <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-zinc-500">
+              BTS Stories
             </p>
           </div>
         </div>
