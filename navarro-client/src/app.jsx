@@ -4,13 +4,14 @@ import AboutPage from './pages/AboutPage';
 import ArticleListPage from './pages/ArticleListPage';
 import ArticlePage from './pages/ArticlePage';
 import HomePage from './pages/HomePage';
+import NotFoundPage from './pages/NotFoundPage';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Layout />,
-    errorElement: <ArticlePage />,
+    errorElement: <NotFoundPage />,
     children: [
       {
         path: '/',
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
       {
         path: '/articles/:name',
         element: <ArticlePage />
+      },
+      {
+        path: '*',
+        element: <NotFoundPage />
       }
     ]
   }
