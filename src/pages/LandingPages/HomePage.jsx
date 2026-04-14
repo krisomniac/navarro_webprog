@@ -1,8 +1,9 @@
-import Button from "../components/Button";
-import groupphoto from "../images/group photo.jpg";
-import album from "../images/album.jpg";
-import tour from "../images/tour.webp";
-import army from "../images/army.jpg";
+import Button from "../../components/Button";
+import articles from "../../assets/article-content.js";
+import groupphoto from "../../images/group photo.jpg";
+import album from "../../images/album.jpg";
+import tour from "../../images/tour.webp";
+import army from "../../images/army.jpg";
 
 const HomePage = () => {
   return (
@@ -93,6 +94,9 @@ const HomePage = () => {
           <h2 className="mt-2 text-2xl font-semibold text-zinc-900">
             Discover Their World
           </h2>
+          <p className="mt-4 max-w-xl text-sm leading-7 text-zinc-600 sm:text-base">
+            Browse {articles.length} BTS stories, news updates, and career highlights from across the ARMY universe.
+          </p>
         </div>
 
         <div className="grid gap-4 md:grid-cols-3">

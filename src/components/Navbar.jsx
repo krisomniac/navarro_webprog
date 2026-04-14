@@ -5,7 +5,12 @@ import arirang from "../images/arirang.png";
 const links = [
   { label: "Home", to: "/" },
   { label: "About", to: "/about" },
-  { label: "Articles", to: "/article" },
+  { label: "Articles", to: "/articles" },
+];
+
+const authLinks = [
+  { label: "Sign In", to: "/auth/signin" },
+  { label: "Sign Up", to: "/auth/signup" },
 ];
 
 const navLinkClassName = ({ isActive }) =>
@@ -14,6 +19,14 @@ const navLinkClassName = ({ isActive }) =>
     isActive
       ? "border-red-600 bg-red-600 text-white shadow-lg shadow-red-600/30"
       : "border-transparent text-gray-300 hover:border-red-600 hover:bg-red-600/10 hover:text-red-600",
+  ].join(" ");
+
+const authNavLinkClassName = ({ isActive }) =>
+  [
+    "rounded-full border-2 px-5 py-2.5 text-[12px] font-semibold uppercase tracking-[0.2em] transition-all duration-300",
+    isActive
+      ? "border-red-600 bg-red-600 text-white shadow-lg shadow-red-600/30"
+      : "border-red-600/50 text-red-400 hover:border-red-600 hover:bg-red-600 hover:text-white",
   ].join(" ");
 
 const CustomLogo = () => (
@@ -29,7 +42,7 @@ const CustomLogo = () => (
     </div>
     <div className="flex flex-col">
       <span className="text-2xl font-black tracking-tight bg-gradient-to-r from-white to-red-600 bg-clip-text text-transparent">
-     
+        Arirang
       </span>
     </div>
   </div>
@@ -61,7 +74,7 @@ const MobileMenuButton = ({ isOpen, onClick }) => (
   </button>
 );
 
-const MobileNav = ({ isOpen, links, onLinkClick }) => (
+const MobileNav = ({ isOpen, links, authLinks, onLinkClick }) => (
   <div
     className={`absolute left-0 right-0 top-full mt-2 border-b border-red-600/20 bg-black/95 backdrop-blur-xl md:hidden transition-all duration-300 overflow-hidden ${
       isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
@@ -80,6 +93,27 @@ const MobileNav = ({ isOpen, links, onLinkClick }) => (
               isActive
                 ? "bg-red-600 text-white shadow-lg"
                 : "text-gray-300 hover:bg-red-600/20 hover:text-red-600",
+            ].join(" ")
+          }
+        >
+          {link.label}
+        </NavLink>
+      ))}
+      
+      {/* Divider for auth links */}
+      <div className="my-2 h-px bg-gradient-to-r from-transparent via-red-600/50 to-transparent" />
+      
+      {authLinks.map((link) => (
+        <NavLink
+          key={link.to}
+          to={link.to}
+          onClick={onLinkClick}
+          className={({ isActive }) =>
+            [
+              "rounded-xl px-5 py-3.5 text-[14px] font-semibold uppercase tracking-[0.15em] transition-all duration-200 text-center",
+              isActive
+                ? "bg-red-600 text-white shadow-lg"
+                : "border border-red-600/50 text-red-400 hover:bg-red-600 hover:text-white",
             ].join(" ")
           }
         >
@@ -119,7 +153,7 @@ const NavBar = () => {
           </NavLink>
 
          
-          <nav className="hidden items-center gap-3 md:flex">
+          <div className="hidden items-center gap-3 md:flex">
             {links.map((link) => (
               <NavLink
                 key={link.to}
@@ -130,17 +164,32 @@ const NavBar = () => {
                 {link.label}
               </NavLink>
             ))}
-          </nav>
+          </div>
 
-         
+          <div className="hidden items-center gap-3 md:flex">
+            {authLinks.map((link) => (
+              <NavLink
+                key={link.to}
+                to={link.to}
+                className={authNavLinkClassName}
+              >
+                {link.label}
+              </NavLink>
+            ))}
+          </div>
+
           <MobileMenuButton isOpen={isMobileMenuOpen} onClick={toggleMobileMenu} />
         </div>
 
- 
-        <MobileNav isOpen={isMobileMenuOpen} links={links} onLinkClick={closeMobileMenu} />
+        <MobileNav 
+          isOpen={isMobileMenuOpen} 
+          links={links} 
+          authLinks={authLinks}
+          onLinkClick={closeMobileMenu} 
+        />
       </header>
 
-    
+      {/* Backdrop */}
       {isMobileMenuOpen && (
         <div
           className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm md:hidden"
@@ -152,5 +201,3 @@ const NavBar = () => {
 };
 
 export default NavBar;
-
-
