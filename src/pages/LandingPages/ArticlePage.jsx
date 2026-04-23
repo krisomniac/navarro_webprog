@@ -15,7 +15,7 @@ import fan from '../../images/fan.webp';
 function ArticlePage() {
   const { name } = useParams();
   const article = articles.find(article => article.name === name);
-  const imageSource = article ? article.image || imageMap[article.name] : null;
+
 
   if (!article) {
     return (

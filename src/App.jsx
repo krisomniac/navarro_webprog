@@ -8,6 +8,10 @@ import HomePage from './pages/LandingPages/HomePage';
 import NotFoundPage from './pages/NotFoundPage';
 import SignInPage from './pages/AuthPages/SignInPage';
 import SignUpPage from './pages/AuthPages/SignUpPage';
+import DashboardPage from './pages/DashboardPages/DashboardPage';
+import ReportsPage from './pages/DashboardPages/ReportsPage';
+import UsersPage from './pages/DashboardPages/UsersPage';
+import DashLayout from "./Components/Layouts/DashLayout";
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 const router = createBrowserRouter([
@@ -17,7 +21,7 @@ const router = createBrowserRouter([
     errorElement: <NotFoundPage />,
     children: [
       {
-        path: '', 
+        index: true,
         element: <HomePage />
       },
       {
@@ -49,6 +53,25 @@ const router = createBrowserRouter([
       {
         path: 'signup',
         element: <SignUpPage />
+      }
+    ]
+  },
+  {
+    path: 'dashboard',
+    element: <DashLayout />,
+    errorElement: <NotFoundPage />,
+    children: [
+      {
+        index: true,
+        element: <DashboardPage />
+      },
+      {
+        path: 'reports',
+        element: <ReportsPage />
+      },
+      {
+        path: 'users',
+        element: <UsersPage />
       }
     ]
   }
