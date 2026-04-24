@@ -1,6 +1,5 @@
 // src/pages/DashboardPages/ReportsPage.jsx
 import React from 'react';
-import { Typography, Grid, Card, CardContent, Box, Stack } from '@mui/material';
 import { BarChart, PieChart, LineChart } from '@mui/x-charts';
 
 const ReportsPage = () => {
@@ -23,99 +22,94 @@ const ReportsPage = () => {
     };
 
     return (
-        <>
-            <Typography variant="h4" gutterBottom sx={{ fontWeight: 'bold' }}>
-                Reports & Analytics
-            </Typography>
-            <Typography variant="body1" gutterBottom sx={{ mb: 4, color: '#666' }}>
-                View charts and data visualization
-            </Typography>
+        <div className="flex w-full flex-col">
+            {/* Header Section */}
+            <div className="px-6 py-8">
+                <div className="flex justify-between items-start">
+                    <div>
+                        <h1 className="text-3xl font-bold text-gray-900">
+                            Reports & Analytics
+                        </h1>
+                        <p className="mt-2 text-gray-600">
+                            View charts and data visualization
+                        </p>
+                    </div>
+                    <div className="text-right">
+                        <p className="text-sm text-gray-500">Report Period</p>
+                        <p className="text-4xl font-bold text-gray-900">2024</p>
+                    </div>
+                </div>
+            </div>
 
             {/* Summary Cards */}
-            <Grid container spacing={3} sx={{ mb: 4 }}>
-                <Grid item xs={12} md={3}>
-                    <Card sx={{ bgcolor: '#1976d2', color: 'white', borderRadius: 2 }}>
-                        <CardContent>
-                            <Typography variant="h3" sx={{ fontWeight: 'bold' }}>1,245</Typography>
-                            <Typography variant="body1">Total Users</Typography>
-                        </CardContent>
-                    </Card>
-                </Grid>
-                <Grid item xs={12} md={3}>
-                    <Card sx={{ bgcolor: '#2e7d32', color: 'white', borderRadius: 2 }}>
-                        <CardContent>
-                            <Typography variant="h3" sx={{ fontWeight: 'bold' }}>$125K</Typography>
-                            <Typography variant="body1">Total Revenue</Typography>
-                        </CardContent>
-                    </Card>
-                </Grid>
-                <Grid item xs={12} md={3}>
-                    <Card sx={{ bgcolor: '#ed6c02', color: 'white', borderRadius: 2 }}>
-                        <CardContent>
-                            <Typography variant="h3" sx={{ fontWeight: 'bold' }}>23.5%</Typography>
-                            <Typography variant="body1">Conversion Rate</Typography>
-                        </CardContent>
-                    </Card>
-                </Grid>
-                <Grid item xs={12} md={3}>
-                    <Card sx={{ bgcolor: '#9c27b0', color: 'white', borderRadius: 2 }}>
-                        <CardContent>
-                            <Typography variant="h3" sx={{ fontWeight: 'bold' }}>89%</Typography>
-                            <Typography variant="body1">Satisfaction</Typography>
-                        </CardContent>
-                    </Card>
-                </Grid>
-            </Grid>
+            <div className="px-6 mb-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div className="border border-gray-200 rounded-xl p-5 bg-white">
+                        <p className="text-sm text-gray-500">Total Users</p>
+                        <p className="text-3xl font-bold text-gray-900 mt-1">1,245</p>
+                    </div>
+                    <div className="border border-gray-200 rounded-xl p-5 bg-white">
+                        <p className="text-sm text-gray-500">Total Revenue</p>
+                        <p className="text-3xl font-bold text-gray-900 mt-1">$125K</p>
+                    </div>
+                    <div className="border border-gray-200 rounded-xl p-5 bg-white">
+                        <p className="text-sm text-gray-500">Conversion Rate</p>
+                        <p className="text-3xl font-bold text-gray-900 mt-1">23.5%</p>
+                    </div>
+                    <div className="border border-gray-200 rounded-xl p-5 bg-white">
+                        <p className="text-sm text-gray-500">Satisfaction</p>
+                        <p className="text-3xl font-bold text-gray-900 mt-1">89%</p>
+                    </div>
+                </div>
+            </div>
 
             {/* Bar Chart */}
-            <Typography variant="h5" gutterBottom sx={{ fontWeight: 'bold', mt: 2 }}>
-                Quarterly Sales
-            </Typography>
-            <Card sx={{ p: 2, mb: 4, borderRadius: 2 }}>
-                <BarChart
-                    series={[{ data: salesData.sales, label: 'Sales', color: '#1976d2' }]}
-                    height={300}
-                    xAxis={[{ data: salesData.categories, scaleType: 'band', label: 'Quarters' }]}
-                    yAxis={[{ label: 'Sales ($K)' }]}
-                />
-            </Card>
+            <div className="px-6 mb-6">
+                <h2 className="text-xl font-semibold text-gray-900 mb-4">Quarterly Sales</h2>
+                <div className="border border-gray-200 rounded-xl p-4 bg-white">
+                    <BarChart
+                        series={[{ data: salesData.sales, label: 'Sales', color: '#3b82f6' }]}
+                        height={300}
+                        xAxis={[{ data: salesData.categories, scaleType: 'band', label: 'Quarters' }]}
+                        yAxis={[{ label: 'Sales ($K)' }]}
+                    />
+                </div>
+            </div>
 
             {/* Pie Chart & Line Chart */}
-            <Grid container spacing={3} sx={{ mb: 4 }}>
-                <Grid item xs={12} md={6}>
-                    <Typography variant="h5" gutterBottom sx={{ fontWeight: 'bold' }}>
-                        Product Distribution
-                    </Typography>
-                    <Card sx={{ p: 2, borderRadius: 2 }}>
-                        <PieChart
-                            series={[{
-                                data: platformData,
-                                innerRadius: 30,
-                                outerRadius: 100,
-                            }]}
-                            height={300}
-                            slotProps={{
-                                legend: { position: { vertical: 'middle', horizontal: 'right' } }
-                            }}
-                        />
-                    </Card>
-                </Grid>
-                <Grid item xs={12} md={6}>
-                    <Typography variant="h5" gutterBottom sx={{ fontWeight: 'bold' }}>
-                        Revenue Growth
-                    </Typography>
-                    <Card sx={{ p: 2, borderRadius: 2 }}>
-                        <LineChart
-                            xAxis={[{ data: growthData.years, label: 'Year' }]}
-                            series={[
-                                { data: growthData.revenue, label: 'Revenue ($K)', color: '#2e7d32' }
-                            ]}
-                            height={300}
-                        />
-                    </Card>
-                </Grid>
-            </Grid>
-        </>
+            <div className="px-6 mb-6">
+                <div className="grid lg:grid-cols-2 gap-6">
+                    <div>
+                        <h2 className="text-xl font-semibold text-gray-900 mb-4">Product Distribution</h2>
+                        <div className="border border-gray-200 rounded-xl p-4 bg-white">
+                            <PieChart
+                                series={[{
+                                    data: platformData,
+                                    innerRadius: 30,
+                                    outerRadius: 100,
+                                }]}
+                                height={300}
+                                slotProps={{
+                                    legend: { position: { vertical: 'middle', horizontal: 'right' } }
+                                }}
+                            />
+                        </div>
+                    </div>
+                    <div>
+                        <h2 className="text-xl font-semibold text-gray-900 mb-4">Revenue Growth</h2>
+                        <div className="border border-gray-200 rounded-xl p-4 bg-white">
+                            <LineChart
+                                xAxis={[{ data: growthData.years, label: 'Year' }]}
+                                series={[
+                                    { data: growthData.revenue, label: 'Revenue ($K)', color: '#3b82f6' }
+                                ]}
+                                height={300}
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     );
 };
 

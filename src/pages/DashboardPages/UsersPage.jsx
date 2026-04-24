@@ -1,6 +1,6 @@
 // src/pages/DashboardPages/UsersPage.jsx
 import React from 'react';
-import { Typography, Box } from '@mui/material';
+import { Box } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 
 const columns = [
@@ -46,31 +46,81 @@ const rows = [
 ];
 
 const UsersPage = () => {
+    // Calculate stats
+    const totalUsers = rows.length;
+    const activeUsers = rows.filter(row => row.age !== null).length;
+    const averageAge = (
+        rows.reduce((sum, row) => sum + (row.age || 0), 0) /
+        rows.filter((row) => row.age !== null).length
+    ).toFixed(1);
+
     return (
-        <>
-            <Typography variant="h4" gutterBottom>
-                Users Management
-            </Typography>
-            <Typography variant="body1" gutterBottom sx={{ mb: 4, color: '#666' }}>
-                Manage and view all users in the system
-            </Typography>
-            <Box sx={{ height: 400, width: '100%' }}>
-                <DataGrid
-                    rows={rows}
-                    columns={columns}
-                    initialState={{
-                        pagination: {
-                            paginationModel: {
-                                pageSize: 5,
-                            },
-                        },
-                    }}
-                    pageSizeOptions={[5, 10, 25]}
-                    checkboxSelection
-                    disableRowSelectionOnClick
-                />
-            </Box>
-        </>
+        <div className="flex w-full flex-col">
+            {/* Header Section */}
+            <div className="px-6 py-8">
+                <div className="flex justify-between items-start">
+                    <div>
+                        <h1 className="text-3xl font-bold text-gray-900">
+                            Users Management
+                        </h1>
+                        <p className="mt-2 text-gray-600">
+                            Manage and view all users in the system
+                        </p>
+                    </div>
+                    <div className="text-right">
+                        <p className="text-sm text-gray-500">Total Users</p>
+                        <p className="text-4xl font-bold text-gray-900">{totalUsers}</p>
+                    </div>
+                </div>
+            </div>
+
+            {/* Summary Cards */}
+            <div className="px-6 mb-6">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div className="border border-gray-200 rounded-xl p-5 bg-white">
+                        <p className="text-sm text-gray-500">Total Users</p>
+                        <p className="text-3xl font-bold text-gray-900 mt-1">{totalUsers}</p>
+                    </div>
+                    <div className="border border-gray-200 rounded-xl p-5 bg-white">
+                        <p className="text-sm text-gray-500">Active Users</p>
+                        <p className="text-3xl font-bold text-gray-900 mt-1">{activeUsers}</p>
+                    </div>
+                    <div className="border border-gray-200 rounded-xl p-5 bg-white">
+                        <p className="text-sm text-gray-500">Average Age</p>
+                        <p className="text-3xl font-bold text-gray-900 mt-1">{averageAge}</p>
+                    </div>
+                </div>
+            </div>
+
+            {/* User Table */}
+            <div className="px-6 mb-6">
+                <h2 className="text-xl font-semibold text-gray-900 mb-4">User Directory</h2>
+                <div className="border border-gray-200 rounded-xl overflow-hidden bg-white">
+                    <Box sx={{ height: 400, width: '100%' }}>
+                        <DataGrid
+                            rows={rows}
+                            columns={columns}
+                            initialState={{
+                                pagination: {
+                                    paginationModel: {
+                                        pageSize: 5,
+                                    },
+                                },
+                            }}
+                            pageSizeOptions={[5, 10, 25]}
+                            checkboxSelection
+                            disableRowSelectionOnClick
+                            sx={{
+                                border: 0,
+                                '& .MuiDataGrid-columnHeaders': {
+                                    backgroundColor: '#f9fafb',
+                                },
+                            }}
+                        />
+                    </Box>
+                </div>
+            </div>
+        </div>
     );
 };
 
