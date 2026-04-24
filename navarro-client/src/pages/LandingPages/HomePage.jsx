@@ -1,11 +1,14 @@
-import Button from "../components/Button";
-import articles from "../assets/article-content.js";
-import groupphoto from "../images/group photo.jpg";
-import album from "../images/album.jpg";
-import tour from "../images/tour.webp";
-import army from "../images/army.jpg";
+import Button from "../../components/Button";
+import articles from "../../assets/article-content.js";
+import groupphoto from "../../images/group photo.jpg";
+import album from "../../images/album.jpg";
+import tour from "../../images/tour.webp";
+import army from "../../images/army.jpg";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="flex w-full flex-col gap-6">
       <section className="border-y-2 border-zinc-900 bg-zinc-50 px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
@@ -24,9 +27,15 @@ const HomePage = () => {
               Join millions of fans worldwide celebrating BTS's music, artistry, and impact on culture. Experience the power of K-pop's biggest sensation.
             </p>
 
-            <div className="mt-6">
+            <div className="mt-6 flex gap-4">
               <Button to="/about" variant="primary">
                 Join the ARMY
+              </Button>
+              <Button 
+                onClick={() => navigate("/dashboard")} 
+                variant="secondary"
+              >
+                Go to Dashboard
               </Button>
             </div>
           </div>

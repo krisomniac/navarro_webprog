@@ -1,6 +1,6 @@
-import Button from "../components/Button";
-import articles from "../assets/article-content.js";
-import groupphoto from "../images/group.jpg";
+import Button from "../../components/Button";
+import articles from "../../assets/article-content.js";
+import groupphoto from "../../images/group.jpg";
 
 const AboutPage = () => {
   return (

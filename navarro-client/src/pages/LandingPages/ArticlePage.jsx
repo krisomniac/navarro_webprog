@@ -1,10 +1,24 @@
 import { useParams } from 'react-router-dom';
-import Button from '../components/Button';
-import articles from '../assets/article-content.js';
+
+
+import Button from "../../components/Button";
+import articles from "../../assets/article-content.js";
+import dynamite from '../../images/dynamite.jpg';
+import ptd from '../../images/PTD.png';
+import grammy from '../../images/grammy.jpg';
+import golden from '../../images/golden.png';
+import military from '../../images/military.jpg';
+import indigo from '../../images/indigo.jpg';
+import jack from '../../images/jack.avif';
+import dday from '../../images/dday.jpg';
+import jimin from '../../images/jimin.png';
+import fan from '../../images/fan.webp';
 
 function ArticlePage() {
   const { name } = useParams();
-  const article = articles.find((a) => a.name === name); 
+  const article = articles.find(article => article.name === name);
+
+
 
   if (!article) {
     return (
