@@ -1,5 +1,5 @@
 import Button from "../components/Button";
-import articles from "../assets/article-content.js";
+import articles from "../Data/article-content.js";
 
 const NotFoundPage = () => (
   <div className="flex w-full flex-col items-center justify-center min-h-screen px-4">

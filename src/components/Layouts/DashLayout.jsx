@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+// components/Layouts/DashLayout.jsx
+import React, { useState, useEffect } from "react";
 import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
 import { styled, useTheme, alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
@@ -111,10 +112,13 @@ const Drawer = styled(MuiDrawer, {
     }),
 }));
 
-const SearchIconWrapper = styled("div")(({ theme }) => ({
+const SearchContainer = styled("div")(({ theme }) => ({
     position: "relative",
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
+    backgroundColor: alpha(theme.palette.common.white, 0.15),
+    "&:hover": {
+        backgroundColor: alpha(theme.palette.common.white, 0.25),
+    },
     marginRight: theme.spacing(2),
     marginLeft: 0,
     width: "100%",
@@ -122,6 +126,18 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
         marginLeft: theme.spacing(3),
         width: "auto",
     },
+}));
+
+const SearchIconWrapper = styled("div")(({ theme }) => ({
+    position: "absolute",
+    left: 0,
+    top: 0,
+    height: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingLeft: theme.spacing(1.5),
+    pointerEvents: "none",
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
@@ -140,9 +156,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const getPageTitle = (pathname) =>
     dashboardNavItems.find(({ to }) => to === pathname)?.title ?? "Welcome";
 
-const Dashlayout = () => {
+const DashLayout = () => {
     const theme = useTheme();
     const [open, setOpen] = useState(false);
+    const [globalSearchQuery, setGlobalSearchQuery] = useState("");
     const location = useLocation();
     const navigate = useNavigate();
     const pageTitle = getPageTitle(location.pathname);
@@ -156,8 +173,23 @@ const Dashlayout = () => {
     };
     
     const handleLogout = () => {
-        navigate("/");
+        localStorage.removeItem("globalSearchQuery");
+        navigate("/auth/signin");
     };
+
+    const handleSearchChange = (event) => {
+        const query = event.target.value;
+        setGlobalSearchQuery(query);
+        localStorage.setItem("globalSearchQuery", query);
+        window.dispatchEvent(new CustomEvent("globalSearch", { detail: query }));
+    };
+
+    useEffect(() => {
+        const savedSearch = localStorage.getItem("globalSearchQuery");
+        if (savedSearch) {
+            setGlobalSearchQuery(savedSearch);
+        }
+    }, []);
 
     return (
         <Box sx={{ display: "flex" }}>
@@ -180,13 +212,17 @@ const Dashlayout = () => {
                     >
                         {pageTitle}
                     </Typography>
-                    <SearchIconWrapper>
-                        <SearchIcon />
-                    </SearchIconWrapper>
-                    <StyledInputBase
-                        placeholder="Search…"
-                        inputProps={{ "aria-label": "search" }}
-                    />
+                    <SearchContainer>
+                        <SearchIconWrapper>
+                            <SearchIcon />
+                        </SearchIconWrapper>
+                        <StyledInputBase
+                            placeholder="Search…"
+                            inputProps={{ "aria-label": "search" }}
+                            value={globalSearchQuery}
+                            onChange={handleSearchChange}
+                        />
+                    </SearchContainer>
                     <Button color="inherit" variant="outlined" onClick={handleLogout}>
                         Logout
                     </Button>
@@ -236,10 +272,10 @@ const Dashlayout = () => {
             </Drawer>
             <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
                 <DrawerHeader />
-                <Outlet />
+                <Outlet context={{ globalSearchQuery, setGlobalSearchQuery }} />
             </Box>
         </Box>
     );
 };
 
-export default Dashlayout;
+export default DashLayout;

@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import Button from "../../components/Button";
-import articles from "../../assets/article-content.js";
+import articles from "../../Data/article-content.js";
 import dynamite from '../../images/dynamite.jpg';
 import ptd from '../../images/PTD.png';
 import grammy from '../../images/grammy.jpg';
@@ -12,10 +12,22 @@ import dday from '../../images/dday.jpg';
 import jimin from '../../images/jimin.png';
 import fan from '../../images/fan.webp';
 
+// Map the actual article names to their images
+const articleImages = {
+  'bts-dynamite-history-making-single': dynamite,
+  'bts-permission-to-dance-world-tour': ptd,
+  'bts-grammy-win-2023': grammy,
+  'bts-army-fan-meeting-los-angeles': fan,
+  'bts-solo-projects-jungkook': golden,
+  'bts-military-service-update': military,
+};
+
 function ArticlePage() {
   const { name } = useParams();
   const article = articles.find(article => article.name === name);
-
+  
+  // Get the image source based on the article name
+  const imageSource = article ? articleImages[article.name] : null;
 
   if (!article) {
     return (

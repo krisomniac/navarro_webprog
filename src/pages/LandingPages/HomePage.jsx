@@ -1,5 +1,5 @@
 import Button from "../../components/Button";
-import articles from "../../assets/article-content.js";
+import articles from "../../Data/article-content.js";
 import groupphoto from "../../images/group photo.jpg";
 import album from "../../images/album.jpg";
 import tour from "../../images/tour.webp";
