@@ -1,7 +1,7 @@
 import Button from "../components/Button";
 import groupphoto from "../images/group.jpg";
 import Navbar from "../components/Navbar";
-import articles from "../assets/article-content.js";
+import articles from "../Data/article-content.js";
 
 const NotFoundPage = () => {
   return (

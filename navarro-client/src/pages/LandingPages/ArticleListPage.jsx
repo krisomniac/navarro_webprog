@@ -18,76 +18,16 @@ const ArticleListPage = () => {
       {articles.map((article, index) => (
         <article key={article.name} className="rounded-3xl border-2 border-zinc-900 bg-zinc-100 p-4">
           <div className="flex aspect-4/3 items-center justify-center rounded-[1.25rem] bg-zinc-200 overflow-hidden">
-            {index === 0 && (
-              <img 
-                src={dynamite} 
-                alt={article.title}
-                className="h-full w-full object-cover"
-              />
-            )}
-            {index === 1 && (
-              <img 
-                src={ptd} 
-                alt={article.title}
-                className="h-full w-full object-cover"
-              />
-            )}
-            {index === 2 && (
-              <img 
-                src={grammy} 
-                alt={article.title}
-                className="h-full w-full object-cover"
-              />
-            )}
-            {index === 3 && (
-              <img 
-                src={golden} 
-                alt={article.title}
-                className="h-full w-full object-cover"
-              />
-            )}
-            {index === 4 && (
-              <img 
-                src={military} 
-                alt={article.title}
-                className="h-full w-full object-cover"
-              />
-            )}
-            {index === 5 && (
-              <img 
-                src={indigo} 
-                alt={article.title}
-                className="h-full w-full object-cover"
-              />
-            )}
-            {index === 6 && (
-              <img 
-                src={jack} 
-                alt={article.title}
-                className="h-full w-full object-cover"
-              />
-            )}
-            {index === 7 && (
-              <img 
-                src={dday} 
-                alt={article.title}
-                className="h-full w-full object-cover"
-              />
-            )}
-            {index === 8 && (
-              <img 
-                src={jimin} 
-                alt={article.title}
-                className="h-full w-full object-cover"
-              />
-            )}
-            {index === 9 && (
-              <img 
-                src={fan} 
-                alt={article.title}
-                className="h-full w-full object-cover"
-              />
-            )}
+            {index === 0 && <img src={dynamite} alt={article.title} className="h-full w-full object-cover" />}
+            {index === 1 && <img src={ptd} alt={article.title} className="h-full w-full object-cover" />}
+            {index === 2 && <img src={grammy} alt={article.title} className="h-full w-full object-cover" />}
+            {index === 3 && <img src={golden} alt={article.title} className="h-full w-full object-cover" />}
+            {index === 4 && <img src={military} alt={article.title} className="h-full w-full object-cover" />}
+            {index === 5 && <img src={indigo} alt={article.title} className="h-full w-full object-cover" />}
+            {index === 6 && <img src={jack} alt={article.title} className="h-full w-full object-cover" />}
+            {index === 7 && <img src={dday} alt={article.title} className="h-full w-full object-cover" />}
+            {index === 8 && <img src={jimin} alt={article.title} className="h-full w-full object-cover" />}
+            {index === 9 && <img src={fan} alt={article.title} className="h-full w-full object-cover" />}
           </div>
           <p className="mt-4 text-[11px] font-semibold uppercase tracking-[0.24em] text-zinc-500">
             {article.category}

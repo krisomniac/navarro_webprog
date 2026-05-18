@@ -11,7 +11,7 @@ import SignUpPage from './pages/AuthPages/SignUpPage';
 import DashboardPage from './pages/DashboardPages/DashboardPage';
 import ReportsPage from './pages/DashboardPages/ReportsPage';
 import UsersPage from './pages/DashboardPages/UsersPage';
-import DashLayout from "./Components/Layouts/DashLayout";
+import DashLayout from "./components/Layouts/DashLayout";
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import NotFoundPage from './pages/NotFoundPage';
 
