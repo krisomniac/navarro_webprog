@@ -1,191 +1,262 @@
-// pages/DashboardPages/DashboardPage.jsx
-import { useState } from 'react';
-import {
-  Box,
-  Grid,
-  Card,
-  CardContent,
-  Typography,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Chip,
-} from '@mui/material';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { BarChart } from '@mui/x-charts/BarChart';
+import { PieChart } from '@mui/x-charts/PieChart';
+import { Gauge } from '@mui/x-charts/Gauge';
+import { DataGrid } from '@mui/x-data-grid';
+import Stack from '@mui/material/Stack';
+import Box from '@mui/material/Box';
+import { Typography, Card, CardContent } from '@mui/material';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
 
-// Sample data
-const rows = [
-  { id: 1, firstName: 'John', lastName: 'Snow', age: 14, status: 'Active' },
-  { id: 2, firstName: 'Cersei', lastName: 'Lannister', age: 31, status: 'Active' },
-  { id: 3, firstName: 'Jamie', lastName: 'Lannister', age: 31, status: 'Inactive' },
-  { id: 4, firstName: 'Arya', lastName: 'Stark', age: 11, status: 'Active' },
-  { id: 5, firstName: 'Daenerys', lastName: 'Targaryen', age: 25, status: 'Active' },
-  { id: 6, firstName: 'Melisandre', lastName: null, age: 150, status: 'Inactive' },
-  { id: 7, firstName: 'Ferrara', lastName: 'Cliffors', age: 44, status: 'Active' },
-  { id: 8, firstName: 'Rossini', lastName: 'Frances', age: 36, status: 'Active' },
-  { id: 9, firstName: 'Harvey', lastName: 'Roxie', age: 65, status: 'Inactive' },
-];
+// Fix default Leaflet marker icon issue with bundlers
+import L from 'leaflet';
+import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
+import markerIcon from 'leaflet/dist/images/marker-icon.png';
+import markerShadow from 'leaflet/dist/images/marker-shadow.png';
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: markerIcon2x,
+  iconUrl: markerIcon,
+  shadowUrl: markerShadow,
+});
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 90 },
-  { field: 'firstName', headerName: 'First Name', width: 130 },
-  { field: 'lastName', headerName: 'Last Name', width: 130 },
-  { field: 'age', headerName: 'Age', width: 90 },
-  { field: 'status', headerName: 'Status', width: 120 },
+  { field: 'firstName', headerName: 'First Name', width: 150, editable: true },
+  { field: 'lastName', headerName: 'Last Name', width: 150, editable: true },
+  { field: 'age', headerName: 'Age', width: 150, editable: true },
+  {
+    field: 'fullName',
+    headerName: 'Full name',
+    description: 'This column has a value getter and is not sortable',
+    sortable: false,
+    width: 160,
+    valueGetter: (value, row) => `${row.firstName || ''} ${row.lastName || ''}`,
+  },
 ];
 
-const DashboardPage = () => {
-  const averageAge = (rows.reduce((sum, row) => sum + (row.age || 0), 0) / rows.filter((row) => row.age !== null).length).toFixed(1);
-  const activeUsers = rows.filter(r => r.status === 'Active').length;
+const rows = [
+  { id: 1, lastName: 'Snow', firstName: 'Jon', age: 14 },
+  { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 31 },
+  { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 31 },
+  { id: 4, lastName: 'Stark', firstName: 'Arya', age: 11 },
+  { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
+  { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
+  { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
+  { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
+  { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
+];
 
-  // Data for charts
-  const ageGroups = [
-    { range: '0-25', count: rows.filter(r => r.age <= 25).length },
-    { range: '26-35', count: rows.filter(r => r.age > 25 && r.age <= 35).length },
-    { range: '36-50', count: rows.filter(r => r.age > 35 && r.age <= 50).length },
-    { range: '50+', count: rows.filter(r => r.age > 50).length },
-  ];
+// Bar chart colors
+const BAR_COLORS = ['#3b82f6', '#8b5cf6', '#f59e0b'];
 
-  const statusData = [
-    { name: 'Active', value: activeUsers, color: '#4caf50' },
-    { name: 'Inactive', value: rows.length - activeUsers, color: '#f44336' },
-  ];
+function DashboardPage() {
+  const [paginationModel, setPaginationModel] = useState({ pageSize: 5, page: 0 });
 
   return (
-    <Box sx={{ width: '100%', p: { xs: 2, sm: 3 } }}>
-      {/* Header */}
-      <Box sx={{ mb: 4 }}>
-        <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 1 }}>
-          Dashboard
-        </Typography>
-        <Typography variant="body1" color="text.secondary">
-          View your key metrics, charts, and user data all in one place.
-        </Typography>
-      </Box>
+    <>
+      <Typography variant="h4" gutterBottom sx={{ fontWeight: 'bold' }}>
+        Dashboard
+      </Typography>
 
       {/* Summary Cards */}
-      <Grid container spacing={3} sx={{ mb: 4 }}>
-        <Grid item xs={12} sm={6} md={3}>
-          <Card sx={{ bgcolor: '#e3f2fd' }}>
-            <CardContent>
-              <Typography color="primary" gutterBottom>Total Users</Typography>
-              <Typography variant="h3" fontWeight="bold">{rows.length}</Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <Card sx={{ bgcolor: '#e8f5e9' }}>
-            <CardContent>
-              <Typography color="success.main" gutterBottom>Active Users</Typography>
-              <Typography variant="h3" fontWeight="bold">{activeUsers}</Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <Card sx={{ bgcolor: '#fff3e0' }}>
-            <CardContent>
-              <Typography color="warning.main" gutterBottom>Average Age</Typography>
-              <Typography variant="h3" fontWeight="bold">{averageAge}</Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <Card sx={{ bgcolor: '#f3e5f5' }}>
-            <CardContent>
-              <Typography color="secondary" gutterBottom>Data Points</Typography>
-              <Typography variant="h3" fontWeight="bold">32</Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-      </Grid>
+      <Stack direction={{ xs: 'column', md: 'row' }} spacing={2} sx={{ mb: 4 }}>
+        <Card sx={{ flex: 1, background: '#fafafa', boxShadow: 1 }}>
+          <CardContent>
+            <Typography color="text.secondary" gutterBottom variant="subtitle2">
+              Total Registered Residents
+            </Typography>
+            <Typography variant="h3" sx={{ fontWeight: 'bold' }}>
+              11,245
+            </Typography>
+          </CardContent>
+        </Card>
+        <Card sx={{ flex: 1, background: '#fafafa', boxShadow: 1 }}>
+          <CardContent>
+            <Typography color="text.secondary" gutterBottom variant="subtitle2">
+              Active Evacuation Centers
+            </Typography>
+            <Typography variant="h3" sx={{ fontWeight: 'bold', color: 'error.main' }}>
+              8 / 12
+            </Typography>
+          </CardContent>
+        </Card>
+        <Card sx={{ flex: 1, background: '#fafafa', boxShadow: 1 }}>
+          <CardContent>
+            <Typography color="text.secondary" gutterBottom variant="subtitle2">
+              Urgent Hazard Incident Dispatches
+            </Typography>
+            <Typography variant="h3" sx={{ fontWeight: 'bold', color: 'warning.main' }}>
+              14
+            </Typography>
+          </CardContent>
+        </Card>
+      </Stack>
 
-      {/* Charts */}
-      <Grid container spacing={3} sx={{ mb: 4 }}>
-        <Grid item xs={12} md={6}>
-          <Card>
-            <CardContent>
-              <Typography variant="h6" sx={{ mb: 2 }}>Age Distribution</Typography>
-              <ResponsiveContainer width="100%" height={300}>
-                <BarChart data={ageGroups}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="range" />
-                  <YAxis />
-                  <Tooltip />
-                  <Bar dataKey="count" fill="#3b82f6" />
-                </BarChart>
-              </ResponsiveContainer>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Card>
-            <CardContent>
-              <Typography variant="h6" sx={{ mb: 2 }}>User Status</Typography>
-              <ResponsiveContainer width="100%" height={300}>
-                <PieChart>
-                  <Pie 
-                    data={statusData} 
-                    cx="50%" 
-                    cy="50%" 
-                    labelLine={false} 
-                    label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`} 
-                    outerRadius={80} 
-                    dataKey="value"
-                  >
-                    {statusData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.color} />
-                    ))}
-                  </Pie>
-                  <Tooltip />
-                </PieChart>
-              </ResponsiveContainer>
-            </CardContent>
-          </Card>
-        </Grid>
-      </Grid>
+      {/* Charts Row */}
+      <Stack direction={{ xs: 'column', md: 'row' }} spacing={2} alignItems="stretch" sx={{ mb: 4 }}>
 
-      {/* User Table */}
-      <Card>
-        <CardContent>
-          <Typography variant="h6" sx={{ mb: 2 }}>User Directory</Typography>
-          <TableContainer component={Paper}>
-            <Table>
-              <TableHead>
-                <TableRow sx={{ bgcolor: '#f5f5f5' }}>
-                  <TableCell>ID</TableCell>
-                  <TableCell>First Name</TableCell>
-                  <TableCell>Last Name</TableCell>
-                  <TableCell align="center">Age</TableCell>
-                  <TableCell align="center">Status</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {rows.map((row) => (
-                  <TableRow key={row.id}>
-                    <TableCell>{row.id}</TableCell>
-                    <TableCell>{row.firstName}</TableCell>
-                    <TableCell>{row.lastName || '-'}</TableCell>
-                    <TableCell align="center">{row.age}</TableCell>
-                    <TableCell align="center">
-                      <Chip 
-                        label={row.status} 
-                        color={row.status === 'Active' ? 'success' : 'error'} 
-                        size="small" 
-                      />
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </CardContent>
-      </Card>
-    </Box>
+        {/* Bar Chart */}
+        <Card sx={{ flex: 1, boxShadow: 'none', border: '1px solid', borderColor: 'divider' }}>
+          <CardContent>
+            <Typography variant="h6" fontWeight={700} sx={{ mb: 0.5 }}>
+              Hazard Incidents by Quarter
+            </Typography>
+            <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 1 }}>
+              Flooding, Landslide, and Fire incidents per quarter
+            </Typography>
+            <BarChart
+              series={[
+                { data: [35, 44, 24, 34], label: 'Flooding', color: '#3b82f6' },
+                { data: [51, 6, 49, 30], label: 'Landslide', color: '#8b5cf6' },
+                { data: [15, 25, 30, 50], label: 'Fire', color: '#f59e0b' },
+              ]}
+              height={260}
+              xAxis={[{
+                data: ['Q1', 'Q2', 'Q3', 'Q4'],
+                scaleType: 'band',
+                tickLabelStyle: { fontSize: 13, fill: '#6b7280' },
+                disableLine: true,
+                disableTicks: true,
+              }]}
+              yAxis={[{
+                tickLabelStyle: { fontSize: 12, fill: '#9ca3af' },
+                disableLine: true,
+                disableTicks: true,
+              }]}
+              sx={{
+                '& .MuiChartsAxis-bottom .MuiChartsAxis-line': { display: 'none' },
+                '& .MuiChartsAxis-left .MuiChartsAxis-line': { display: 'none' },
+                '& .MuiChartsGrid-line': { stroke: '#f0f0f0' },
+                '& .MuiBarElement-root': { rx: 6 },
+              }}
+              slotProps={{
+                legend: {
+                  direction: 'row',
+                  position: { vertical: 'bottom', horizontal: 'middle' },
+                  padding: 0,
+                  itemMarkWidth: 10,
+                  itemMarkHeight: 10,
+                  markGap: 5,
+                  itemGap: 16,
+                  labelStyle: { fontSize: 12, fill: '#6b7280' },
+                },
+              }}
+              margin={{ top: 10, bottom: 56, left: 36, right: 10 }}
+            />
+          </CardContent>
+        </Card>
+
+        {/* Pie Chart */}
+        <Card sx={{ flex: 1, boxShadow: 'none', border: '1px solid', borderColor: 'divider' }}>
+          <CardContent>
+            <Typography variant="h6" fontWeight={700} sx={{ mb: 0.5 }}>
+              Incidents by District
+            </Typography>
+            <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 1 }}>
+              Distribution across districts
+            </Typography>
+            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+              <PieChart
+                series={[
+                  {
+                    data: [
+                      { id: 0, value: 10, label: 'Dist. 1', color: '#3b82f6' },
+                      { id: 1, value: 15, label: 'Dist. 2', color: '#8b5cf6' },
+                      { id: 2, value: 20, label: 'Dist. 3', color: '#f59e0b' },
+                    ],
+                    innerRadius: 45,
+                    outerRadius: 90,
+                    paddingAngle: 3,
+                    cornerRadius: 5,
+                    highlightScope: { fade: 'global', highlight: 'item' },
+                  },
+                ]}
+                width={380}
+                height={260}
+                slotProps={{
+                  legend: {
+                    direction: 'row',
+                    position: { vertical: 'bottom', horizontal: 'middle' },
+                    padding: 0,
+                    itemMarkWidth: 10,
+                    itemMarkHeight: 10,
+                    markGap: 5,
+                    itemGap: 16,
+                    labelStyle: { fontSize: 12, fill: '#6b7280' },
+                  },
+                }}
+                margin={{ top: 10, bottom: 48, left: 10, right: 10 }}
+              />
+            </Box>
+          </CardContent>
+        </Card>
+
+        {/* Gauge */}
+        <Box sx={{ width: { xs: '100%', md: 200 }, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <Card sx={{ width: '100%', boxShadow: 'none', border: '1px solid', borderColor: 'divider' }}>
+            <CardContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <Typography variant="h6" fontWeight={700} sx={{ mb: 0.5, textAlign: 'center' }}>
+                Response Rate
+              </Typography>
+              <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 1, textAlign: 'center' }}>
+                Overall dispatch response
+              </Typography>
+              <Gauge
+                width={140}
+                height={140}
+                value={66}
+                startAngle={-110}
+                endAngle={110}
+                text="66%"
+                sx={{
+                  '& .MuiGauge-valueText': { fontSize: 20, fontWeight: 700 },
+                  '& .MuiGauge-referenceArc': { fill: '#f0f0f0' },
+                  '& .MuiGauge-valueArc': { fill: '#3b82f6' },
+                }}
+              />
+            </CardContent>
+          </Card>
+        </Box>
+      </Stack>
+
+      {/* Recent Evacuees Log */}
+      <Typography variant="h5" gutterBottom sx={{ mt: 4 }}>
+        Recent Evacuees Log
+      </Typography>
+      <Box sx={{ height: 370, width: '100%', background: 'white', borderRadius: 2, boxShadow: 1 }}>
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          paginationModel={paginationModel}
+          onPaginationModelChange={setPaginationModel}
+          pageSizeOptions={[5]}
+          disableRowSelectionOnClick
+        />
+      </Box>
+
+      {/* Location Map */}
+      <Typography variant="h5" gutterBottom sx={{ mt: 4 }}>
+        Location Map
+      </Typography>
+      <Box sx={{ height: 500, width: '100%', borderRadius: 2, overflow: 'hidden', border: '1px solid', borderColor: 'divider' }}>
+        <MapContainer center={[14.604253, 120.994314]} zoom={15} style={{ height: '100%', width: '100%' }}>
+          <TileLayer
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          />
+          <Marker position={[14.604253, 120.994314]}>
+            <Popup>
+              <strong>National University-Manila</strong><br />
+              <em>551 F. Jhocson St, Sampaloc, Manila, 1008 Metro Manila</em>
+            </Popup>
+          </Marker>
+        </MapContainer>
+      </Box>
+    </>
   );
-};
+}
 
 export default DashboardPage;
