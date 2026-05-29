@@ -1,5 +1,11 @@
 import './assets/styles/index.css';
 import Layout from './components/Layout';
+<<<<<<< HEAD
+import AboutPage from './pages/AboutPage';
+import ArticleListPage from './pages/ArticleListPage';
+import ArticlePage from './pages/ArticlePage';
+import HomePage from './pages/HomePage';
+=======
 import AuthLayout from './components/Layouts/AuthLayout';
 import AboutPage from './pages/LandingPages/AboutPage';
 import ArticleListPage from './pages/LandingPages/ArticleListPage';
@@ -11,8 +17,10 @@ import SignUpPage from './pages/AuthPages/SignUpPage';
 import DashboardPage from './pages/DashboardPages/DashboardPage';
 import ReportsPage from './pages/DashboardPages/ReportsPage';
 import UsersPage from './pages/DashboardPages/UsersPage';
-import DashLayout from "./components/Layouts/DashLayout";
+import DashLayout from "./Components/Layouts/DashLayout";
+>>>>>>> 2e1aca9 (lab-act5)
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import NotFoundPage from './pages/NotFoundPage';
 
 const router = createBrowserRouter([
   {
@@ -35,10 +43,6 @@ const router = createBrowserRouter([
       {
         path: 'articles/:name',
         element: <ArticlePage />
-      },
-      {
-        path: '*',
-        element: <NotFoundPage />
       }
     ]
   },

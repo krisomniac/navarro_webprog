@@ -1,14 +1,3 @@
-import dynamite from '../images/dynamite.jpg';
-import ptd from '../images/PTD.png';
-import grammy from '../images/grammy.jpg';
-import golden from '../images/golden.png';
-import military from '../images/military.jpg';
-import indigo from '../images/indigo.jpg';
-import jack from '../images/jack.avif';
-import dday from '../images/dday.jpg';
-import jimin from '../images/jimin.png';
-import fan from '../images/fan.webp';
-
 const articles = [
   {
     name: "bts-dynamite-history-making-single",
@@ -23,8 +12,7 @@ const articles = [
       "First #1 on Billboard Hot 100",
       "Grammy nomination for Best Pop Duo/Group",
       "100M+ views in 24 hours on YouTube"
-    ],
-    image: dynamite
+    ]
   },
   {
     name: "bts-permission-to-dance-world-tour",
@@ -39,8 +27,7 @@ const articles = [
       "First in-person concerts since 2019",
       "SoFi Stadium: 4 sold-out shows (200,000+ fans)",
       "Global live-streaming reaching millions"
-    ],
-    image: ptd
+    ]
   },
   {
     name: "bts-grammy-win-2023",
@@ -55,8 +42,7 @@ const articles = [
       "First Grammy win for a Korean act",
       "Collaboration with Coldplay",
       "Historic acceptance speech"
-    ],
-    image: grammy
+    ]
   },
   {
     name: "bts-solo-projects-jungkook",
@@ -71,8 +57,7 @@ const articles = [
       "First solo No. 1 on Billboard Hot 100",
       "Album 'Golden' breaks streaming records",
       "Sold-out showcase in NYC"
-    ],
-    image: golden
+    ]
   },
   {
     name: "bts-military-service-update",
@@ -87,8 +72,7 @@ const articles = [
       "Jin first to enlist (December 2022)",
       "Full reunion expected in 2025",
       "Continued solo releases during service"
-    ],
-    image: military
+    ]
   },
   {
     name: "bts-solo-projects-rm",
@@ -103,8 +87,7 @@ const articles = [
       "Debut at No. 3 on Billboard 200",
       "Collaborations with global artists",
       "Themes of mental health and self-discovery"
-    ],
-    image: indigo
+    ]
   },
   {
     name: "bts-solo-projects-jhope",
@@ -119,8 +102,7 @@ const articles = [
       "Title track 'MORE' becomes a hit",
       "Debut at No. 14 on Billboard 200",
       "Themes of equality and self-love"
-    ],
-    image: jack
+    ]
   },
   {
     name: "bts-solo-projects-suga",
@@ -135,8 +117,7 @@ const articles = [
       "First BTS member with solo No. 1 on Billboard 200",
       "Themes of mental health and personal growth",
       "Collaborations with IU and MAX"
-    ],
-    image: dday
+    ]
   },
   {
     name: "bts-solo-projects-jimin",
@@ -151,8 +132,7 @@ const articles = [
       "Title track 'Like Crazy' breaks records",
       "Debut at No. 2 on Billboard 200",
       "Themes of self-love and confidence"
-    ],
-    image: jimin
+    ]
   },
   {
     name: "bts-army-fan-meeting-los-angeles",
@@ -167,8 +147,7 @@ const articles = [
       "Exclusive behind-the-scenes content",
       "Live Q&A with members",
       "Acoustic performances of fan-favorite songs"
-    ],
-    image: fan
+    ]
   }
 ];
 
