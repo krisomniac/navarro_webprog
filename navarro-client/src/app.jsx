@@ -12,7 +12,7 @@ import DashboardPage from './pages/DashboardPages/DashboardPage';
 import ReportsPage from './pages/DashboardPages/ReportsPage';
 import UsersPage from './pages/DashboardPages/UsersPage';
 import DashLayout from "./components/Layouts/DashLayout";
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
 
 const router = createBrowserRouter([
   {
@@ -24,7 +24,7 @@ const router = createBrowserRouter([
       { path: 'about', element: <AboutPage /> },
       { path: 'articles', element: <ArticleListPage /> },
       { path: 'articles/:name', element: <ArticlePage /> },
-      { path: '*', element: <NotFoundPage /> }
+      { path: 'article', element: <Navigate to="/articles" replace /> },
     ]
   },
   {
@@ -44,6 +44,10 @@ const router = createBrowserRouter([
       { path: 'reports', element: <ReportsPage /> },
       { path: 'users', element: <UsersPage /> }
     ]
+  },
+  {
+    path: '*',
+    element: <NotFoundPage />
   }
 ]);
 

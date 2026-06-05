@@ -5,7 +5,7 @@ import arirang from "../images/arirang.png";
 const links = [
   { label: "Home", to: "/" },
   { label: "About", to: "/about" },
-  { label: "Articles", to: "/article" },
+  { label: "Articles", to: "/articles" },
 ];
 
 const authLinks = [

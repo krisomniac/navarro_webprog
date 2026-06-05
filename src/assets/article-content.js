@@ -1,154 +1,104 @@
-const articles = [
-  {
-    name: "bts-dynamite-history-making-single",
-    title: "BTS 'Dynamite': The History-Making Single That Took Over the World",
-    category: "Music Release",
-    date: "August 21, 2020",
-    readTime: "5 min read",
-    content: [
-      "BTS made history with their first English single 'Dynamite,' debuting at No. 1 on the Billboard Hot 100. The disco-pop track broke YouTube records with 100M+ views in 24 hours and earned BTS their first Grammy nomination."
-    ],
-    keyMoments: [
-      "First #1 on Billboard Hot 100",
-      "Grammy nomination for Best Pop Duo/Group",
-      "100M+ views in 24 hours on YouTube"
-    ]
-  },
-  {
-    name: "bts-permission-to-dance-world-tour",
-    title: "Permission to Dance World Tour: BTS's Spectacular Return to the Stage",
-    category: "Tour News",
-    date: "November 27, 2021",
-    readTime: "4 min read",
-    content: [
-      "After a two-year pandemic hiatus, BTS returned with their 'Permission to Dance on Stage' tour. They performed four sold-out shows at LA's SoFi Stadium to over 200,000 fans, later expanding to Seoul, Las Vegas, and Japan with global live-streaming."
-    ],
-    keyMoments: [
-      "First in-person concerts since 2019",
-      "SoFi Stadium: 4 sold-out shows (200,000+ fans)",
-      "Global live-streaming reaching millions"
-    ]
-  },
-  {
-    name: "bts-grammy-win-2023",
-    title: "BTS Makes History with First Grammy Win in 2023",
-    category: "Award Win",
-    date: "February 5, 2023",
-    readTime: "3 min read",
-    content: [
-      "BTS won their first Grammy Award for Best Pop Duo/Group Performance with 'My Universe' featuring Coldplay, becoming the first Korean act to win a Grammy. Their emotional acceptance speech celebrated breaking musical boundaries."
-    ],
-    keyMoments: [
-      "First Grammy win for a Korean act",
-      "Collaboration with Coldplay",
-      "Historic acceptance speech"
-    ]
-  },
-  {
-    name: "bts-solo-projects-jungkook",
-    title: "Jungkook's Solo Debut: 'Golden' Album Takes the World by Storm",
-    category: "Solo Release",
-    date: "November 3, 2023",
-    readTime: "3 min read",
-    content: [
-      "Jungkook's solo album 'Golden' featured the hit 'Seven,' which debuted at No. 1 on Billboard Hot 100. The album broke streaming records and included collaborations with Jack Harlow, Major Lazer, and DJ Snake."
-    ],
-    keyMoments: [
-      "First solo No. 1 on Billboard Hot 100",
-      "Album 'Golden' breaks streaming records",
-      "Sold-out showcase in NYC"
-    ]
-  },
-  {
-    name: "bts-military-service-update",
-    title: "BTS Military Service: Members Begin Enlistment, Promise to Reunite",
-    category: "News Update",
-    date: "December 11, 2023",
-    readTime: "5 min read",
-    content: [
-      "BTS members began mandatory military service starting with Jin in December 2022. The group promised to reunite as a complete group in 2025 after all members complete their service, continuing solo releases in the meantime."
-    ],
-    keyMoments: [
-      "Jin first to enlist (December 2022)",
-      "Full reunion expected in 2025",
-      "Continued solo releases during service"
-    ]
-  },
-  {
-    name: "bts-solo-projects-rm",
-    title: "RM's Solo Album 'Indigo': A Deep Dive into the Leader's Mind",
-    category: "Solo Release",
-    date: "December 2, 2022",
-    readTime: "4 min read",
-    content: [
-      "RM released his first full-length solo album 'Indigo,' exploring mental health and self-discovery. The album debuted at No. 3 on Billboard 200 and featured collaborations with Erykah Badu, Anderson .Paak, and Tablo."
-    ],
-    keyMoments: [
-      "Debut at No. 3 on Billboard 200",
-      "Collaborations with global artists",
-      "Themes of mental health and self-discovery"
-    ]
-  },
-  {
-    name: "bts-solo-projects-jhope",
-    title: "J-Hope's 'Jack in the Box': The Main Dancer's Energetic Solo Debut",
-    category: "Solo Release",
-    date: "July 15, 2022",
-    readTime: "3 min read",
-    content: [
-      "J-Hope debuted solo with 'Jack in the Box,' featuring the hit 'MORE.' The album debuted at No. 14 on Billboard 200 and addressed themes of equality and self-love."
-    ],
-    keyMoments: [
-      "Title track 'MORE' becomes a hit",
-      "Debut at No. 14 on Billboard 200",
-      "Themes of equality and self-love"
-    ]
-  },
-  {
-    name: "bts-solo-projects-suga",
-    title: "Suga's 'D-2': The Rapper's Raw and Honest Solo Album",
-    category: "Solo Release",
-    date: "April 22, 2023",
-    readTime: "4 min read",
-    content: [
-      "Suga's solo album 'D-2' debuted at No. 1 on Billboard 200, making him the first BTS member to achieve this. The album explored mental health and societal pressures with collaborations featuring IU and MAX."
-    ],
-    keyMoments: [
-      "First BTS member with solo No. 1 on Billboard 200",
-      "Themes of mental health and personal growth",
-      "Collaborations with IU and MAX"
-    ]
-  },
-  {
-    name: "bts-solo-projects-jimin",
-    title: "Jimin's 'Face': The Main Dancer's Sultry Solo Album",
-    category: "Solo Release",
-    date: "March 24, 2023",
-    readTime: "3 min read",
-    content: [
-      "Jimin's solo debut 'Face' featured the hit 'Like Crazy,' debuting at No. 2 on Billboard 200. The album focused on themes of self-love and confidence."
-    ],
-    keyMoments: [
-      "Title track 'Like Crazy' breaks records",
-      "Debut at No. 2 on Billboard 200",
-      "Themes of self-love and confidence"
-    ]
-  },
-  {
-    name: "bts-army-fan-meeting-los-angeles",
-    title: "BTS ARMY Fan Meeting: An Unforgettable Night in Los Angeles",
-    category: "Fan Event",
-    date: "December 15, 2023",
-    readTime: "4 min read",
-    content: [
-      "BTS held an exclusive fan meeting in LA featuring behind-the-scenes content, live Q&A sessions, and acoustic performances of fan favorites like 'Spring Day' and 'Magic Shop.'"
-    ],
-    keyMoments: [
-      "Exclusive behind-the-scenes content",
-      "Live Q&A with members",
-      "Acoustic performances of fan-favorite songs"
-    ]
-  }
-];
+import { useParams } from 'react-router-dom';
+import Button from "../../components/Button";
+import articles from "../../Data/article-content.js";
+import dynamite from '../../images/dynamite.jpg';
+import ptd from '../../images/PTD.png';
+import grammy from '../../images/grammy.jpg';
+import golden from '../../images/golden.png';
+import military from '../../images/military.jpg';
+import indigo from '../../images/indigo.jpg';
+import jack from '../../images/jack.avif';
+import dday from '../../images/dday.jpg';
+import jimin from '../../images/jimin.png';
+import fan from '../../images/fan.webp';
 
-export default articles;
+const articleImages = {
+  'bts-dynamite-history-making-single': dynamite,
+  'bts-permission-to-dance-world-tour': ptd,
+  'bts-grammy-win-2023': grammy,
+  'bts-army-fan-meeting-los-angeles': fan,
+  'bts-solo-projects-jungkook': golden,
+  'bts-military-service-update': military,
+  'bts-solo-projects-rm': indigo,
+  'bts-solo-projects-jhope': jack,
+  'bts-solo-projects-suga': dday,
+  'bts-solo-projects-jimin': jimin,
+};
+
+function ArticlePage() {
+  const { name } = useParams();
+  const article = articles.find(article => article.name === name);
+  const imageSource = article ? articleImages[article.name] : null;
+
+  if (!article) {
+    return (
+      <div className="flex w-full flex-col gap-6">
+        <section className="border-y-2 border-zinc-900 bg-zinc-50 px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
+          <div className="mx-auto max-w-3xl">
+            <h1 className="text-3xl font-bold text-zinc-900 sm:text-4xl">Article Not Found</h1>
+            <Button to="/articles" className="mt-6">Back to Articles</Button>
+          </div>
+        </section>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex w-full flex-col gap-6">
+      <section className="border-y-2 border-zinc-900 bg-zinc-50 px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
+        <div className="max-w-3xl">
+          <div className="mb-4">
+            <Button to="/articles">Back to Articles</Button>
+          </div>
+          <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.28em] text-zinc-500">
+            {article.category}
+          </p>
+          <h1 className="text-3xl font-bold leading-tight text-zinc-900 sm:text-4xl">
+            {article.title}
+          </h1>
+          <p className="mt-2 text-sm text-zinc-500">
+            {article.date} · {article.readTime}
+          </p>
+        </div>
+      </section>
+      <section className="border-y-2 border-zinc-900 bg-zinc-50 px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
+        <div className="mx-auto max-w-3xl">
+          <div className="mb-8 overflow-hidden rounded-[1.25rem] border-2 border-zinc-900">
+            {imageSource ? (
+              <img src={imageSource} alt={article.title} className="w-full object-cover" />
+            ) : (
+              <div className="flex aspect-4/3 items-center justify-center bg-zinc-200">
+                <div className="h-24 w-24 border-2 border-zinc-300 bg-zinc-100"></div>
+              </div>
+            )}
+          </div>
+          <div className="prose prose-sm max-w-none space-y-4 text-zinc-700">
+            {article.content.map((paragraph, index) => (
+              <p key={index} className="text-base leading-7 text-zinc-700 whitespace-pre-wrap">
+                {paragraph}
+              </p>
+            ))}
+          </div>
+          {article.keyMoments && (
+            <div className="mt-8 rounded-xl border-2 border-zinc-900 bg-zinc-100 p-6">
+              <h2 className="mb-4 text-sm font-semibold uppercase tracking-widest text-zinc-500">Key Moments</h2>
+              <ul className="space-y-2">
+                {article.keyMoments.map((moment, index) => (
+                  <li key={index} className="flex items-start gap-2 text-sm text-zinc-700">
+                    <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-zinc-900"></span>
+                    {moment}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          <div className="mt-8 border-t-2 border-zinc-900 pt-6">
+            <Button to="/articles">Back to Articles</Button>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+export default ArticlePage;

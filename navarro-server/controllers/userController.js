@@ -28,13 +28,12 @@ const createUser = async (req, res) => {
             return res.status(400).json({ message: 'User already exists with this email or username' });
         }
         
-        // ✅ Removed manual bcrypt.hash — the pre('save') hook handles it
         const user = new User({
             firstName,
             lastName,
             email,
             username,
-            password, // plain password — hook will hash it
+            password,
             type: type || 'viewer',
             isActive: isActive !== undefined ? isActive : true,
             age: age || null,
@@ -59,7 +58,6 @@ const updateUser = async (req, res) => {
     try {
         const updateData = { ...req.body };
         
-    
         if (updateData.password) {
             updateData.password = await bcrypt.hash(updateData.password, 10);
         }
@@ -97,10 +95,6 @@ const loginUser = async (req, res) => {
 
         if (!user.isActive) {
             return res.status(403).json({ message: 'Your account is inactive. Please contact support' });
-        }
-
-        if (user.type === 'viewer') {
-            return res.status(403).json({ message: 'Viewers are not allowed to log in' });
         }
 
         const isPasswordValid = await bcrypt.compare(password, user.password);
